@@ -1,6 +1,6 @@
 import React from 'react'
-import { useTaskContext } from '@/context/TaskContext'
-import { TaskStatus, TaskPriority, TaskCategory } from '@/types'
+import { useTaskContext } from '../context/TaskContext'
+import { TaskStatus, TaskPriority, TaskCategory } from '../types'
 import './FilterPanel.css'
 
 export const FilterPanel: React.FC = () => {

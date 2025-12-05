@@ -1,4 +1,4 @@
-import { Task, TaskStatus, TaskPriority, TaskCategory, TaskFilter, TaskStats } from '@/types'
+import { Task, TaskStatus, TaskPriority, TaskCategory, TaskFilter, TaskStats } from '../types'
 import { differenceInHours } from 'date-fns'
 
 export const filterTasks = (tasks: Task[], filter: TaskFilter): Task[] => {

@@ -51,6 +51,7 @@ export interface Task {
   assignedTo: string | null
   dependencies: string[]
   subtasks: string[]
+  starred?: boolean
 }
 
 export interface TaskFilter {

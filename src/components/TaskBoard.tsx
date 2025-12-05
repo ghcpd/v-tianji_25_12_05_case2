@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDrop } from 'react-dnd'
-import { Task, TaskStatus } from '@/types'
+import { Task, TaskStatus } from '../types'
 import { TaskCard } from './TaskCard'
-import { useTaskContext } from '@/context/TaskContext'
-import { filterTasks, sortTasks } from '@/utils/taskUtils'
+import { useTaskContext } from '../context/TaskContext'
+import { filterTasks, sortTasks } from '../utils/taskUtils'
 import './TaskBoard.css'
 
 interface TaskBoardProps {
@@ -26,6 +26,7 @@ const statusLabels = {
 
 export const TaskBoard: React.FC<TaskBoardProps> = ({ onTaskClick }) => {
   const { state, updateTask } = useTaskContext()
+  const { toggleStar } = useTaskContext()
   const filteredTasks = filterTasks(state.tasks, state.filter)
   const sortedTasks = sortTasks(filteredTasks, 'priority')
 
@@ -41,6 +42,8 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({ onTaskClick }) => {
 
   return (
     <div className="task-board">
+      {/* listen for star toggle events from TaskCard */}
+      <StarListener toggleStar={toggleStar} />
       {statusColumns.map(status => (
         <TaskColumn
           key={status}
@@ -93,4 +96,17 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ status, tasks, allTasks, onDrop
       </div>
     </div>
   )
+}
+
+const StarListener: React.FC<{ toggleStar: (id: string) => void }> = ({ toggleStar }) => {
+  React.useEffect(() => {
+    const handler = (e: any) => {
+      if (e?.detail?.id) {
+        toggleStar(e.detail.id)
+      }
+    }
+    window.addEventListener('toggle-star', handler as EventListener)
+    return () => window.removeEventListener('toggle-star', handler as EventListener)
+  }, [toggleStar])
+  return null
 }
