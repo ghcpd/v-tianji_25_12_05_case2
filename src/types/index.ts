@@ -45,6 +45,7 @@ export interface Task {
   tags: string[]
   createdAt: Date
   updatedAt: Date
+  completedAt: Date | null
   dueDate: Date | null
   estimatedHours: number | null
   actualHours: number
