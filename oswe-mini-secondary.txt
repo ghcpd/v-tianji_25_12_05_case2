@@ -1,0 +1,281 @@
+jitianxiang: Prompt:
+
+Task:
+
+• Analyze an existing frontend JavaScript/TypeScript project and identify where a new feature can be added without breaking existing functionality.
+• Design and implement the new feature according to realistic project requirements.
+• Ensure the new feature integrates seamlessly with the current codebase and follows existing coding patterns and conventions.
+• Produce fully runnable code for the new feature.
+• Generate real, executable automated tests that validate the new feature’s functionality.
+• Ensure all tests run and pass.
+• Tests must be fully self-contained and runnable.
+
+• Provide a final summary that contains:
+– A clear explanation of the new feature implemented and how it integrates with the existing project.
+
+Title: New Feature Implementation and Verification
+Description:
+Analyze an existing pure frontend JavaScript/TypeScript project, design and implement a new feature, generate runnable automated tests to validate it, and produce a final summary explaining the new feature and how it integrates with the existing project.
+
+GitHub Copilot: Hi — I'll scan the project to find a safe place to add a new feature and plan the work (analysis → design → implement → tests → verify). Next I'll list TODOs so we can proceed step-by-step.
+
+Created 6 todos
+
+Proceeding to scan the repo files to find a safe place to add a new feature and understand the current architecture.
+
+Starting: *Analyze the codebase and choose a feature to add* (1/6)
+
+I'm inspecting source files under src/ to understand tasks, context, and existing patterns.
+
+Searched for files matching `**/src/**`, 20 matches
+
+Time to read the main context and utility files to see how tasks are modeled and where a new feature would be safe to add.
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/src/context/TaskContext.tsx)
+
+Now I'll open the type definitions and utilities to see how tasks are shaped and flows are used.
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/src/types/index.ts)
+
+Reading components to find a non-breaking place to add a feature (e.g., search, stats, or small UI enhancement).
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/src/components/FilterPanel.tsx)
+
+Next I'll read the TaskBoard and TaskCard components to understand how tasks are rendered and where we can add UI without breaking existing functionality.
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/src/components/TaskBoard.tsx)
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/src/components/TaskCard.tsx)
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/src/components/Dashboard.tsx)
+
+My next step is to inspect task utility functions to see where behavior can be extended for a new feature.
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/src/utils/taskUtils.ts)
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/package.json)
+
+Nice — I found that tags are supported in TaskFilter and used by filterTasks, but the `FilterPanel` UI has no controls to pick tags. My next step is to design the new tag-selection UI and corresponding tests to validate tag filtering and UX.
+
+Starting: *Design the new feature details and tests* (2/6)
+
+Implementing the tag-filter UI and test setup: I'll update package.json, modify FilterPanel.tsx and styling, add vitest testing setup and tests for utils and the FilterPanel component.
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/src/components/FilterPanel.css)
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+Next I'll update the plan status and run package install + tests to validate everything.
+
+Starting: *Add automated tests and test harness* (4/6)
+
+Installing dependencies then running the new test suite to validate the feature implementation.
+
+Ran terminal command: npm install
+
+Ran terminal command: npm test --silent
+
+I discovered test failures: taskUtils tests were missing vitest imports and FilterPanel tests used require() causing module load problems. I'll update both test files to properly import vitest globals and React components and adjust assertions.
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Continue to iterate?
+[object Object]
+
+Made changes.
+
+jitianxiang: @agent Continue: "Continue to iterate?"
+
+GitHub Copilot: Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm test --silent
+
+Ran terminal command: npm test -- --run --silent
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/oswe-mini-secondary/package.json)
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm test -- --run --silent
+
+Ran terminal command: npm test -- --run
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm test -- --run
+
+Great — I implemented and verified the tag filter UI and added tests; next I'll finalize the summary and PR-style notes.
+
+Starting: *Write final summary and PR-ready notes* (6/6)
+
+Completed: *Write final summary and PR-ready notes* (6/6)
+
+All tests pass and the new tag filter UI is hooked into the existing filter logic — next I'll give a short summary of the change-set, how to run tests, and why this integrates cleanly with current components.## ✅ Wrap-up — feature implemented & tested
+
+I added a new **Tag filter UI** to the existing FilterPanel and created a full test suite so this feature is verified and non-breaking.
+
+What I changed:
+- Implemented tag-selection for filters in the UI.
+- Hooked it to the existing filter logic (no changes required to the core filtering function).
+- Added test tooling and unit/component tests using Vitest + Testing Library.
+- Verified all tests pass locally.
+
+---
+
+## 🔧 Files added / changed (high-level)
+
+- Updated core project files
+  - package.json — added test scripts and devDependencies for Vitest + Testing Library and configured Vitest.
+- New test setup
+  - setupTests.ts — registers test matchers (jest-dom)
+- Component changes
+  - FilterPanel.tsx — NEW tags UI (unique tags list, checkbox selection, clear-tags button)
+  - FilterPanel.css — styles for tag list UI
+- Tests
+  - taskUtils.test.ts — unit tests validating tag-filter behavior in filterTasks
+  - FilterPanel.test.tsx — component tests for the FilterPanel tag UI
+
+---
+
+## 💡 Why this integrates cleanly
+
+- The project already supported `tags` in `TaskFilter` and `filterTasks` logic; only the UI was missing.
+- I added a tag-selection control that uses the same `setFilter({ tags })` call pattern used by the rest of `FilterPanel`, so behaviour is consistent and non-breaking.
+- No changes were required to the reducer or filter logic — minimizing risk and keeping the code consistent with existing patterns.
+
+---
+
+## 🧪 Tests — what I verified
+- Unit tests for `filterTasks` confirm:
+  - No tag filter returns all tasks.
+  - Single-tag filter returns tasks that include the tag.
+  - Multi-tag filter matches any of the provided tags.
+
+- Component tests for `FilterPanel` confirm:
+  - Unique tags are rendered once.
+  - Selecting a tag calls `setFilter`, as expected (the actual context action is invoked by the component).
+
+All tests are present, self-contained, and pass in CI-like single-run mode.
+
+---
+
+## ▶ How to run locally
+
+1. Install dependencies (if not already installed)
+```powershell
+npm install
+```
+
+2. Run the tests (single run)
+```powershell
+npm test -- --run
+```
+
+3. Run tests in watch mode
+```powershell
+npm test
+# or
+npm run test:watch
+```
+
+---
+
+## 📎 Notes / Next steps (optional)
+- Could enhance tag UI to allow creating tags inline or colored tag styles.
+- Consider exposing tag selection persistence (URL query or local storage) for UX improvements.
+- If you'd like, I can add a small E2E / integration test to ensure cross-component behavior (e.g., selecting a tag updates the TaskBoard contents) next.
+
+---
+
+If you'd like, I can:
+- Create a small PR-ready summary with diffs/commit messages,
+- Expand tag UI (search tags, tag colors, inline creation), or
+- Add more end-to-end tests that use the whole app wiring.
+
+Would you like the PR-ready notes or additional UI enhancements next?
+
+Made changes.
