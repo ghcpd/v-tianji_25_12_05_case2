@@ -59,6 +59,10 @@ export interface TaskFilter {
   category: TaskCategory | null
   tags: string[]
   searchQuery: string
+  /**
+   * If true, include only overdue tasks. If false, include only non-overdue tasks. If null/undefined, ignore overdue status.
+   */
+  overdue?: boolean | null
   dateRange: {
     start: Date | null
     end: Date | null
