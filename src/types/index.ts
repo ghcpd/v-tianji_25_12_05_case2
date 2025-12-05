@@ -35,6 +35,23 @@ export interface TimeEntry {
   duration: number
 }
 
+export enum RecurrenceFrequency {
+  Daily = 'daily',
+  Weekly = 'weekly',
+  Biweekly = 'biweekly',
+  Monthly = 'monthly',
+  Quarterly = 'quarterly',
+  Yearly = 'yearly'
+}
+
+export interface RecurrenceRule {
+  frequency: RecurrenceFrequency | null
+  interval: number
+  endDate: Date | null
+  maxOccurrences: number | null
+  daysOfWeek: number[]
+}
+
 export interface Task {
   id: string
   title: string
@@ -51,6 +68,9 @@ export interface Task {
   assignedTo: string | null
   dependencies: string[]
   subtasks: string[]
+  recurrence: RecurrenceRule | null
+  parentTaskId: string | null
+  isRecurrenceInstance: boolean
 }
 
 export interface TaskFilter {

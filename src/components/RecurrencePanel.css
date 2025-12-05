@@ -1,0 +1,122 @@
+.recurrence-panel {
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin: 12px 0;
+}
+
+.recurrence-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.recurrence-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0;
+  color: #333;
+}
+
+.recurrence-toggle:hover {
+  color: #0066cc;
+}
+
+.recurrence-description {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+}
+
+.recurrence-content {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+.days-of-week {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.checkbox-label input {
+  width: auto;
+  margin: 0;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.save-button,
+.cancel-button {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.save-button {
+  background: #0066cc;
+  color: white;
+}
+
+.save-button:hover {
+  background: #0052a3;
+}
+
+.cancel-button {
+  background: #e8e8e8;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background: #d0d0d0;
+}
