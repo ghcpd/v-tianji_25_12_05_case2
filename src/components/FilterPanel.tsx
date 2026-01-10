@@ -22,6 +22,30 @@ export const FilterPanel: React.FC = () => {
         />
       </div>
       <div className="filter-group">
+        <label>Tags</label>
+        <div className="tags-list">
+          {Array.from(new Set(state.tasks.flatMap(t => t.tags))).length === 0 && <div className="no-tags">No tags available</div>}
+          {Array.from(new Set(state.tasks.flatMap(t => t.tags))).map(tag => (
+            <label key={tag} className="tag-item">
+              <input
+                type="checkbox"
+                checked={state.filter.tags.includes(tag)}
+                onChange={(e) => {
+                  const next = e.target.checked
+                    ? [...state.filter.tags, tag]
+                    : state.filter.tags.filter(t => t !== tag)
+                  setFilter({ tags: next })
+                }}
+              />
+              <span className="tag-label">{tag}</span>
+            </label>
+          ))}
+          {state.filter.tags.length > 0 && (
+            <button className="clear-tags" onClick={() => setFilter({ tags: [] })}>Clear tags</button>
+          )}
+        </div>
+      </div>
+      <div className="filter-group">
         <label>Status</label>
         <select
           value={state.filter.status || ''}
