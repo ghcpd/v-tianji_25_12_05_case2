@@ -74,6 +74,9 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, allTasks, onClick }) =
             {formatDateShort(task.dueDate)}
           </span>
         )}
+        {task.status === TaskStatus.Done && task.completedAt && (
+          <span className="task-completed">Completed: {formatDateShort(task.completedAt)}</span>
+        )}
         <div className="task-hours">
           {task.actualHours > 0 && <span>{task.actualHours.toFixed(1)}h</span>}
           {task.estimatedHours && <span>/{task.estimatedHours}h</span>}

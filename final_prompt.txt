@@ -1,0 +1,18 @@
+Prompt:
+
+Task:
+
+• Analyze an existing frontend JavaScript/TypeScript project and identify where a new feature can be added without breaking existing functionality.
+• Design and implement the new feature according to realistic project requirements.
+• Ensure the new feature integrates seamlessly with the current codebase and follows existing coding patterns and conventions.
+• Produce fully runnable code for the new feature.
+• Generate real, executable automated tests that validate the new feature’s functionality.
+• Ensure all tests run and pass.
+• Tests must be fully self-contained and runnable.
+
+• Provide a final summary that contains:
+– A clear explanation of the new feature implemented and how it integrates with the existing project.
+
+Title: New Feature Implementation and Verification
+Description:
+Analyze an existing pure frontend JavaScript/TypeScript project, design and implement a new feature, generate runnable automated tests to validate it, and produce a final summary explaining the new feature and how it integrates with the existing project.

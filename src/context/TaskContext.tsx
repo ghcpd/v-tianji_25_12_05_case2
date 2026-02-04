@@ -33,7 +33,7 @@ const initialState: TaskState = {
   activeTimer: null
 }
 
-const taskReducer = (state: TaskState, action: TaskAction): TaskState => {
+export const taskReducer = (state: TaskState, action: TaskAction): TaskState => {
   switch (action.type) {
     case 'ADD_TASK':
       const newTask: Task = {
@@ -41,6 +41,7 @@ const taskReducer = (state: TaskState, action: TaskAction): TaskState => {
         id: uuidv4(),
         createdAt: new Date(),
         updatedAt: new Date(),
+        completedAt: null,
         actualHours: 0
       }
       return { ...state, tasks: [...state.tasks, newTask] }
@@ -48,11 +49,18 @@ const taskReducer = (state: TaskState, action: TaskAction): TaskState => {
     case 'UPDATE_TASK':
       return {
         ...state,
-        tasks: state.tasks.map(task =>
-          task.id === action.payload.id
-            ? { ...task, ...action.payload.updates, updatedAt: new Date() }
-            : task
-        )
+        tasks: state.tasks.map(task => {
+          if (task.id !== action.payload.id) return task
+          const updatedTask: Task = { ...task, ...action.payload.updates, updatedAt: new Date() }
+          // If the status is updated to Done, set completedAt timestamp
+          if (action.payload.updates.status === TaskStatus.Done) {
+            updatedTask.completedAt = new Date()
+          } else if (action.payload.updates.status && action.payload.updates.status !== TaskStatus.Done) {
+            // If status changes away from Done, clear completedAt
+            updatedTask.completedAt = null
+          }
+          return updatedTask
+        })
       }
 
     case 'DELETE_TASK':
