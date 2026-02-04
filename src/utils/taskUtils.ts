@@ -1,5 +1,6 @@
 import { Task, TaskStatus, TaskPriority, TaskCategory, TaskFilter, TaskStats } from '@/types'
 import { differenceInHours } from 'date-fns'
+import { isBefore, startOfDay } from 'date-fns'
 
 export const filterTasks = (tasks: Task[], filter: TaskFilter): Task[] => {
   return tasks.filter(task => {
@@ -17,8 +18,24 @@ export const filterTasks = (tasks: Task[], filter: TaskFilter): Task[] => {
       if (filter.dateRange.start && task.createdAt < filter.dateRange.start) return false
       if (filter.dateRange.end && task.createdAt > filter.dateRange.end) return false
     }
+
+    // overdue filter: when true include only overdue tasks, when false include only non-overdue tasks
+    if (filter.overdue !== undefined && filter.overdue !== null) {
+      const now = startOfDay(new Date())
+      const taskDue = task.dueDate ? startOfDay(task.dueDate) : null
+      const isOverdue = taskDue ? isBefore(taskDue, now) && task.status !== TaskStatus.Done : false
+      if (filter.overdue && !isOverdue) return false
+      if (!filter.overdue && isOverdue) return false
+    }
     return true
   })
+}
+
+export const isTaskOverdue = (task: Task, now: Date = new Date()): boolean => {
+  if (!task.dueDate) return false
+  const dueDay = startOfDay(task.dueDate)
+  const today = startOfDay(now)
+  return isBefore(dueDay, today) && task.status !== TaskStatus.Done
 }
 
 export const sortTasks = (tasks: Task[], sortBy: 'priority' | 'date' | 'title' | 'status'): Task[] => {

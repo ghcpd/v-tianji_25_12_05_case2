@@ -7,6 +7,7 @@ A sophisticated task management application built with React, TypeScript, and mo
 - **Task Management**: Create, update, and delete tasks with rich metadata
 - **Kanban Board**: Drag-and-drop task organization across status columns
 - **Advanced Filtering**: Filter tasks by status, priority, category, tags, and date range
+- **Advanced Filtering**: Filter tasks by status, priority, category, tags, date range, and overdue status
 - **Time Tracking**: Track time spent on tasks with start/stop timer functionality
 - **Data Visualization**: Comprehensive dashboard with charts and statistics
 - **Task Dependencies**: Support for task dependencies and subtasks
@@ -51,6 +52,17 @@ npm run build
 ```bash
 npm run preview
 ```
+
+## Testing
+
+Unit tests are provided for utility logic (Vitest):
+
+```bash
+npm install
+npm test
+```
+
+Test file: `src/utils/taskUtils.test.ts` validates overdue detection and filter behavior.
 
 ## Project Structure
 

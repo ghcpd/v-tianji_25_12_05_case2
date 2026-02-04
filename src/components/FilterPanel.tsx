@@ -83,6 +83,18 @@ export const FilterPanel: React.FC = () => {
           />
         </div>
       </div>
+      <div className="filter-group overdue-filter">
+        <label>Overdue</label>
+        <div className="overdue-control">
+          <input
+            id="overdue-checkbox"
+            type="checkbox"
+            checked={!!state.filter.overdue}
+            onChange={e => setFilter({ overdue: e.target.checked ? true : null })}
+          />
+          <label htmlFor="overdue-checkbox">Show only overdue tasks</label>
+        </div>
+      </div>
     </div>
   )
 }

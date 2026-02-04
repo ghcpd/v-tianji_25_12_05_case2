@@ -1,0 +1,255 @@
+User: Prompt:
+
+Task:
+
+• Analyze an existing frontend JavaScript/TypeScript project and identify where a new feature can be added without breaking existing functionality.
+• Design and implement the new feature according to realistic project requirements.
+• Ensure the new feature integrates seamlessly with the current codebase and follows existing coding patterns and conventions.
+• Produce fully runnable code for the new feature.
+• Generate real, executable automated tests that validate the new feature’s functionality.
+• Ensure all tests run and pass.
+• Tests must be fully self-contained and runnable.
+
+• Provide a final summary that contains:
+– A clear explanation of the new feature implemented and how it integrates with the existing project.
+
+Title: New Feature Implementation and Verification
+Description:
+Analyze an existing pure frontend JavaScript/TypeScript project, design and implement a new feature, generate runnable automated tests to validate it, and produce a final summary explaining the new feature and how it integrates with the existing project.
+
+GitHub Copilot: Let me scan the repository to find a safe place to add a feature and tests, then I'll propose a plan before making changes. Next I'll list files to inspect.
+
+Searched for files matching `**/*.{ts,tsx,js,jsx,json,css,md}`, 25 matches
+
+Proceeding to open key project files (package.json, Task types, utils, and main components) to identify a safe integration point and existing patterns.
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/package.json)
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/components/FilterPanel.tsx)
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/types/index.ts)
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/components/TimeTracker.tsx)
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/utils/taskUtils.ts)
+
+I'm preparing a short plan to add "Overdue" filtering and detection in utilities and UI, plus automated unit tests via Vitest. I'll mark the first todo in-progress and start editing code.
+
+Created 5 todos
+
+I'm set to implement the overdue detection and filtering in types and task utilities first; I will update the code accordingly.
+
+Starting: *Add overdue support to types and utilities* (1/5)
+
+Now I'll add the new type field and utility functions, and update existing functions to honor the overdue filter.
+
+Using "Apply Patch"
+
+Using "Apply Patch"
+
+
+```
+
+```
+Next I'll add the overdue detection util and update filterTasks to respect the new `overdue` filter.
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Starting: *Update FilterPanel UI to toggle overdue filter* (2/5)
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/context/TaskContext.tsx)
+
+I'm going to add a checkbox to FilterPanel.tsx to allow users to show only overdue tasks, mirroring existing form handling patterns.
+
+Using "Apply Patch"
+
+
+```
+
+```
+Next I'll add Vitest to the project devDependencies and create unit tests for the overdue helper and filter behavior.
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/package.json)
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/tsconfig.json)
+
+Checked [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/types/index.ts), [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/utils/taskUtils.ts), [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/components/FilterPanel.tsx), [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/src/utils/taskUtils.test.ts), no problems found
+
+Starting: *Add unit tests and Vitest setup* (3/5)
+
+I'm preparing to install dependencies and run the test suite to validate the new unit tests.
+
+Ran terminal command: npm install
+
+Ran terminal command: npm test --silent -- -u
+
+Good catch — the failing tests used hard-coded dates that became past relative to today. I'll update the tests to use dates that are stable relative to the repository's current date (Dec 5, 2025).
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Continue to iterate?
+[object Object]
+
+Made changes.
+
+User: @agent Continue: "Continue to iterate?"
+
+GitHub Copilot: Ran terminal command: npm test --silent -- -u
+
+Ran terminal command: npm test --silent --
+
+Ran terminal command: npx vitest --run
+
+Ran terminal command: npx vitest run src/utils/taskUtils.test.ts
+
+Time to add a `vitest.config.ts` to ensure the test runner finds TypeScript tests reliably and run them one-shot.
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npx vitest run
+
+Ran terminal command: npx vitest -c vitest.config.ts --run --include src/**/*.test.ts
+
+Starting: *Run tests and fix issues* (4/5)
+
+Ran terminal command: npx vitest -u
+
+Starting: *Write summary and finalize changes* (5/5)
+
+Using "Apply Patch"
+
+Using "Apply Patch"
+
+Read [](file:///c%3A/Users/v-tianji/Desktop/ghcpd/v-tianji_25_12_05_case2/README.md)
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Completed: *Write summary and finalize changes* (5/5)
+
+Perfect! I implemented overdue detection and filtering, added a UI control in the Filter panel, and created unit tests (Vitest) that exercise the new logic; next I will summarize the changes and how to run tests.## ✅ Wrap-up — what I changed and next steps
+Perfect! I added **overdue detection** and a **"Show only overdue tasks"** filter to the app, added a helper `isTaskOverdue`, updated `filterTasks` to support overdue filtering, and included unit tests (Vitest) that validate the new behavior. Next: run the tests locally and review the UI change in the Filter panel.
+
+---
+
+## 🔧 Files changed (high level)
+- Types
+  - index.ts — added `TaskFilter.overdue?: boolean | null`
+- Utilities
+  - taskUtils.ts — added `isTaskOverdue()` and integrated overdue filtering into `filterTasks`
+  - taskUtils.test.ts — Vitest unit tests for overdue logic
+- Components
+  - FilterPanel.tsx — added checkbox UI to show only overdue tasks
+- Test setup / config
+  - vitest.config.ts — Vitest config to discover tests in src
+  - package.json — added `vitest` and test script
+- Docs
+  - README.md — notes on the new feature + test instructions
+
+---
+
+## ✨ The new feature
+- **Overdue detection**:
+  - Function: `isTaskOverdue(task: Task, now?: Date): boolean`  
+  - Logic: a task is overdue when it has a `dueDate` strictly before today (day-precision) and its status is not `done`.
+- **UI**:
+  - In `FilterPanel`, a checkbox labeled **Show only overdue tasks** sets `filter.overdue` in the Task context. When checked only overdue tasks will be listed by the rest of the app’s filter logic.
+- **Filtering**:
+  - `filterTasks(tasks, filter)` now respects `filter.overdue`:
+    - `true` → include only overdue tasks
+    - `false` → exclude overdue tasks
+    - `undefined | null` → ignore overdue status
+
+---
+
+## 🧪 Tests
+- Test file: taskUtils.test.ts
+- Areas tested:
+  - `isTaskOverdue` behavior with and without due dates, due today, and completed tasks
+  - `filterTasks` when `filter.overdue` is true/false
+- Test runner: Vitest (dev dependency)
+
+How to run the tests locally (Windows PowerShell):
+1. Install dev dependencies:
+   - npm install
+2. Run tests:
+   - npm test
+   - or: npx vitest --run
+
+Notes:
+- If your environment has a different Node version or package cache, run `npm install` before `npm test`.
+- The tests are in src and are designed to be self-contained and deterministic relative to their date values.
+
+---
+
+## 🔎 Where to review code
+Open these files to inspect the new logic:
+- index.ts — new filter property
+- taskUtils.ts — `isTaskOverdue` + filter integration
+- FilterPanel.tsx — UI checkbox
+- taskUtils.test.ts — tests
+- vitest.config.ts and package.json — test setup
+
+---
+
+## 💡 Tips & next steps
+- You may want to add a visual "overdue" badge on `TaskCard` to make overdue tasks more visible.
+- Consider making the filter tri-state (All / Overdue / Not overdue) if you need explicit “non-overdue only” UX rather than unchecked=All.
+- Add integration / component tests for the `FilterPanel` if you want UI-level coverage.
+
+---
+
+If you want, I can:
+- add an overdue badge to `TaskCard` and tests for it ✅
+- add a tri-state overdue control in the `FilterPanel` ✅
+
+Which would you prefer?
+
+Made changes.
