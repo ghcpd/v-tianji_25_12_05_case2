@@ -1,7 +1,7 @@
 import React from 'react'
-import { useTaskContext } from '@/context/TaskContext'
-import { calculateTaskStats } from '@/utils/taskUtils'
-import { TaskStatus, TaskPriority, TaskCategory } from '@/types'
+import { useTaskContext } from '../context/TaskContext'
+import { calculateTaskStats } from '../utils/taskUtils'
+import { TaskStatus, TaskPriority, TaskCategory } from '../types'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line } from 'recharts'
 import './Dashboard.css'
 

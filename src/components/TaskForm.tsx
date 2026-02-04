@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Task, TaskPriority, TaskStatus, TaskCategory } from '@/types'
-import { useTaskContext } from '@/context/TaskContext'
+import { Task, TaskPriority, TaskStatus, TaskCategory } from '../types'
+import { useTaskContext } from '../context/TaskContext'
 import './TaskForm.css'
 
 interface TaskFormProps {

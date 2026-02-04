@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDrag } from 'react-dnd'
-import { Task, TaskPriority, TaskStatus } from '@/types'
-import { formatDateShort, isOverdue, isDueSoon } from '@/utils/dateUtils'
-import { getTaskProgress } from '@/utils/taskUtils'
+import { Task, TaskPriority, TaskStatus } from '../types'
+import { formatDateShort, isOverdue, isDueSoon } from '../utils/dateUtils'
+import { getTaskProgress } from '../utils/taskUtils'
 import './TaskCard.css'
 
 interface TaskCardProps {
@@ -45,6 +45,17 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, allTasks, onClick }) =
       onClick={onClick}
       style={{ borderLeftColor: priorityColors[task.priority] }}
     >
+      <button
+        className={`star-btn ${task.starred ? 'starred' : ''}`}
+        onClick={(e) => {
+          e.stopPropagation()
+          const ev = new CustomEvent('toggle-star', { detail: { id: task.id } })
+          window.dispatchEvent(ev)
+        }}
+        aria-label={task.starred ? 'Unstar task' : 'Star task'}
+      >
+        {task.starred ? '★' : '☆'}
+      </button>
       <div className="task-card-header">
         <h3 className="task-title">{task.title}</h3>
         <span className="task-status">{statusLabels[task.status]}</span>

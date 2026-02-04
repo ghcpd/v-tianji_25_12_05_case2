@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, ReactNode } from 'react'
-import { Task, TaskFilter, TaskStatus, TaskPriority, TaskCategory, TimeEntry } from '@/types'
+import { Task, TaskFilter, TaskStatus, TaskPriority, TaskCategory, TimeEntry } from '../types'
 import { v4 as uuidv4 } from 'uuid'
 
 interface TaskState {
@@ -18,6 +18,7 @@ type TaskAction =
   | { type: 'START_TIMER'; payload: string }
   | { type: 'STOP_TIMER'; payload: { taskId: string; endTime: Date } }
   | { type: 'LOAD_TASKS'; payload: Task[] }
+  | { type: 'TOGGLE_STAR'; payload: string }
 
 const initialState: TaskState = {
   tasks: [],
@@ -110,6 +111,14 @@ const taskReducer = (state: TaskState, action: TaskAction): TaskState => {
     case 'LOAD_TASKS':
       return { ...state, tasks: action.payload }
 
+      case 'TOGGLE_STAR':
+        return {
+          ...state,
+          tasks: state.tasks.map(task =>
+            task.id === action.payload ? { ...task, starred: !task.starred } : task
+          )
+        }
+
     default:
       return state
   }
@@ -125,6 +134,7 @@ interface TaskContextType {
   resetFilter: () => void
   startTimer: (taskId: string) => void
   stopTimer: (taskId: string) => void
+  toggleStar: (id: string) => void
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined)
@@ -165,6 +175,10 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }
 
+  const toggleStar = (id: string) => {
+    dispatch({ type: 'TOGGLE_STAR', payload: id })
+  }
+
   return (
     <TaskContext.Provider
       value={{
@@ -177,6 +191,7 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         resetFilter,
         startTimer,
         stopTimer
+          ,toggleStar
       }}
     >
       {children}
